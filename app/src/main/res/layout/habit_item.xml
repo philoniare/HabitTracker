@@ -1,20 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/width_habit_name"
         android:layout_height="wrap_content"
         android:id="@+id/habit_name" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/width_habit_count"
         android:layout_height="wrap_content"
         android:id="@+id/habit_count" />
 
     <Button
-        android:layout_width="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:layout_width="@dimen/width_habit_increment_btn"
         android:layout_height="wrap_content"
+        android:textSize="@dimen/btn_text_size"
+        android:text="@string/action_increment_habit"
         android:id="@+id/habit_increment_count"/>
 </LinearLayout>

@@ -5,7 +5,6 @@ import io.realm.annotations.PrimaryKey;
 
 public class Habit extends RealmObject {
     @PrimaryKey
-    private long id;
     private String name;
     private int completionCount;
 
@@ -14,14 +13,6 @@ public class Habit extends RealmObject {
     public Habit(String name, int completionCount) {
         this.name = name;
         this.completionCount = completionCount;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -38,5 +29,13 @@ public class Habit extends RealmObject {
 
     public void setCompletionCount(int completionCount) {
         this.completionCount = completionCount;
+    }
+
+    @Override
+    public String toString() {
+        return "Habit{" +
+                "name='" + name + '\'' +
+                ", completionCount=" + completionCount +
+                '}';
     }
 }

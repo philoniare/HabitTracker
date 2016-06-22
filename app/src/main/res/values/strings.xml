@@ -3,5 +3,9 @@
     <string name="action_settings">Settings</string>
     <string name="action_cancel">Cancel</string>
     <string name="action_add_habit">Add</string>
+    <string name="action_increment_habit">+</string>
     <string name="hint_habit_name">Enter Habit Name</string>
+    <string name="habit_empty_view">Please add a habit</string>
+    <string name="habit_already_exists">Sorry, habit with the given name already exists</string>
+
 </resources>

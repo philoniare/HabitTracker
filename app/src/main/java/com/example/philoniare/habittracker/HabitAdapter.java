@@ -28,22 +28,15 @@ public class HabitAdapter extends RecyclerView.Adapter<HabitViewHolder> {
 
     @Override
     public void onBindViewHolder(HabitViewHolder holder, int position) {
-        // Bind text with list item
-//         currentArticle = mNewsArticles.get(position);
-//        String articleTitle = currentArticle.getTitle();
-//        String articleSectionName = currentArticle.getSectionName();
-//        String articleThumbnail = currentArticle.getThumbnail();
-//        holder.articleTitle.setText(articleTitle);
-//        holder.articleSectionName.setText(articleSectionName);
-//        if (!articleThumbnail.equals("")) {
-//            Picasso.with(mContext).load(articleThumbnail).into(holder.articleThumbnail);
-//        } else {
-//            holder.articleThumbnail.setVisibility(View.GONE);
-//        }
+        // Bind model with list item
+        Habit currentHabit = mHabitList.get(position);
+        holder.habitNameTV.setText(currentHabit.getName());
+        holder.habitCountTV.setText("Count: " + Integer.toString(currentHabit.getCompletionCount()));
     }
 
     @Override
     public int getItemCount() {
         return this.mHabitList.size();
     }
+
 }

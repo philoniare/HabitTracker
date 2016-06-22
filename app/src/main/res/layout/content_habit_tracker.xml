@@ -10,12 +10,14 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.philoniare.habittracker.HabitTracker"
+    android:orientation="vertical"
     tools:showIn="@layout/activity_habit_tracker">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:visibility="gone"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:text="@string/habit_empty_view" />
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
