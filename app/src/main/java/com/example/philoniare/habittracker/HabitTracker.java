@@ -23,9 +23,9 @@ import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
 
 public class HabitTracker extends AppCompatActivity implements AddHabitDialog.AddHabitDialogListener {
-    public static List<Habit> habitList;
+    public List<Habit> habitList;
     public RecyclerView habitRecyclerView;
-    public static Realm realm;
+    public Realm realm;
     @BindView(R.id.toolbar) Toolbar toolbar;
 
     @Override
@@ -48,8 +48,7 @@ public class HabitTracker extends AppCompatActivity implements AddHabitDialog.Ad
         HabitAdapter habitAdapter = new HabitAdapter(HabitTracker.this, habitList, new Utils.BtnClickListener() {
             @Override
             public void onBtnClick(View view, int position) {
-                Habit habit = HabitTracker.habitList.get(position);
-                Realm realm = HabitTracker.realm;
+                Habit habit = habitList.get(position);
                 Habit storedHabit = realm.where(Habit.class)
                         .equalTo("name", habit.getName())
                         .findFirst();
