@@ -16,6 +16,8 @@ import com.example.philoniare.habittracker.model.Habit;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
@@ -24,13 +26,14 @@ public class HabitTracker extends AppCompatActivity implements AddHabitDialog.Ad
     public static List<Habit> habitList;
     public static RecyclerView habitRecyclerView;
     public static Realm realm;
+    @BindView(R.id.toolbar) Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_habit_tracker);
+        ButterKnife.bind(this);
         habitRecyclerView = (RecyclerView) findViewById(R.id.habit_list);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         // Initialize Realm db
@@ -41,8 +44,6 @@ public class HabitTracker extends AppCompatActivity implements AddHabitDialog.Ad
 
         // Initialize the list of habits from the db
         habitList = new ArrayList<>();
-
-
         habitRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         HabitAdapter habitAdapter = new HabitAdapter(HabitTracker.this, habitList);
         habitRecyclerView.setAdapter(habitAdapter);
@@ -87,6 +88,5 @@ public class HabitTracker extends AppCompatActivity implements AddHabitDialog.Ad
             realm.commitTransaction();
             updateHabitListFromDB();
         }
-
     }
 }
