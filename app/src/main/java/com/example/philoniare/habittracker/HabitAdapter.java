@@ -13,16 +13,18 @@ import java.util.List;
 public class HabitAdapter extends RecyclerView.Adapter<HabitViewHolder> {
     private List<Habit> mHabitList;
     private Context mContext;
+    private Utils.BtnClickListener mClickListener;
 
-    public HabitAdapter(Context context, List<Habit> mHabitList) {
+    public HabitAdapter(Context context, List<Habit> mHabitList, Utils.BtnClickListener listener) {
         this.mHabitList = mHabitList;
         this.mContext = context;
+        this.mClickListener = listener;
     }
 
     @Override
     public HabitViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.habit_item, null);
-        HabitViewHolder rcv = new HabitViewHolder(layoutView, mContext);
+        HabitViewHolder rcv = new HabitViewHolder(layoutView, mContext, mClickListener);
         return rcv;
     }
 
@@ -38,5 +40,4 @@ public class HabitAdapter extends RecyclerView.Adapter<HabitViewHolder> {
     public int getItemCount() {
         return this.mHabitList.size();
     }
-
 }

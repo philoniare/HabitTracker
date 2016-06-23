@@ -6,36 +6,29 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.philoniare.habittracker.model.Habit;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.realm.Realm;
 
 public class HabitViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.habit_name) TextView habitNameTV;
     @BindView(R.id.habit_count) TextView habitCountTV;
     @BindView(R.id.habit_increment_count) Button incrementCountBtn;
+    private Utils.BtnClickListener mClickListener;
     private Context mContext;
 
-    public HabitViewHolder(View itemView, Context mContext) {
+    public HabitViewHolder(View itemView, Context mContext, Utils.BtnClickListener listener) {
         super(itemView);
         ButterKnife.bind(this, itemView);
         this.mContext = mContext;
+        this.mClickListener = listener;
     }
 
     @OnClick(R.id.habit_increment_count)
     public void incrementHabit(View view){
-        Habit habit = HabitTracker.habitList.get(getAdapterPosition());
-        Realm realm = HabitTracker.realm;
-        Habit storedHabit = realm.where(Habit.class)
-                .equalTo("name", habit.getName())
-                .findFirst();
-        realm.beginTransaction();
-        storedHabit.setCompletionCount(storedHabit.getCompletionCount() + 1);
-        realm.commitTransaction();
-        HabitTracker.updateHabitListFromDB();
+        if(mClickListener != null) {
+            mClickListener.onBtnClick(view, getAdapterPosition());
+        }
     }
 }
 

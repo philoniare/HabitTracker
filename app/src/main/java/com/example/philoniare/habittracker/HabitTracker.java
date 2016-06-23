@@ -24,7 +24,7 @@ import io.realm.RealmResults;
 
 public class HabitTracker extends AppCompatActivity implements AddHabitDialog.AddHabitDialogListener {
     public static List<Habit> habitList;
-    public static RecyclerView habitRecyclerView;
+    public RecyclerView habitRecyclerView;
     public static Realm realm;
     @BindView(R.id.toolbar) Toolbar toolbar;
 
@@ -45,7 +45,21 @@ public class HabitTracker extends AppCompatActivity implements AddHabitDialog.Ad
         // Initialize the list of habits from the db
         habitList = new ArrayList<>();
         habitRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        HabitAdapter habitAdapter = new HabitAdapter(HabitTracker.this, habitList);
+        HabitAdapter habitAdapter = new HabitAdapter(HabitTracker.this, habitList, new Utils.BtnClickListener() {
+            @Override
+            public void onBtnClick(View view, int position) {
+                Habit habit = HabitTracker.habitList.get(position);
+                Realm realm = HabitTracker.realm;
+                Habit storedHabit = realm.where(Habit.class)
+                        .equalTo("name", habit.getName())
+                        .findFirst();
+                realm.beginTransaction();
+                storedHabit.setCompletionCount(storedHabit.getCompletionCount() + 1);
+                realm.commitTransaction();
+
+                updateHabitListFromDB();
+            }
+        });
         habitRecyclerView.setAdapter(habitAdapter);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -59,7 +73,7 @@ public class HabitTracker extends AppCompatActivity implements AddHabitDialog.Ad
         updateHabitListFromDB();
     }
 
-    public static void updateHabitListFromDB() {
+    public void updateHabitListFromDB() {
         habitList.clear();
         RealmResults<Habit> results = realm.where(Habit.class).findAll();
         for(Habit result: results) {
@@ -89,4 +103,6 @@ public class HabitTracker extends AppCompatActivity implements AddHabitDialog.Ad
             updateHabitListFromDB();
         }
     }
+
+
 }
